@@ -51,7 +51,7 @@ export function ContactForm() {
   }
 
   return (
-    <div className="animate-fade-in rounded-md border border-border bg-card p-6 lg:p-8">
+    <div className="card-glow glow-cyan animate-fade-in rounded-lg border border-border bg-card p-6 lg:p-8">
       <h3 className="text-lg font-medium text-foreground">Prenons contact</h3>
       <p className="mt-1 text-sm text-muted-foreground">
         Un projet, une collaboration, une question ? Écrivez-moi, je réponds
@@ -94,18 +94,18 @@ export function ContactForm() {
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder="Parlez-moi de votre projet..."
-            className="mt-1.5 w-full resize-y rounded-md border border-border bg-background px-3 py-2.5 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-foreground"
+            className="mt-1.5 w-full resize-y rounded-lg border border-border bg-background px-3 py-2.5 text-sm text-foreground outline-none transition-all placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20"
           />
         </div>
 
         {status === "success" ? (
-          <div className="flex items-start gap-2.5 rounded-md border border-emerald-200 bg-emerald-50 p-3 text-sm text-emerald-900">
+          <div className="flex items-start gap-2.5 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-sm text-emerald-900">
             <Check className="mt-0.5 h-4 w-4 shrink-0" strokeWidth={1.5} />
             <span>Message envoyé. Merci, je vous réponds rapidement.</span>
           </div>
         ) : null}
         {status === "error" ? (
-          <div className="flex items-start gap-2.5 rounded-md border border-red-200 bg-red-50 p-3 text-sm text-red-900">
+          <div className="flex items-start gap-2.5 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-900">
             <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" strokeWidth={1.5} />
             <span>{errorMsg}</span>
           </div>
@@ -114,7 +114,7 @@ export function ContactForm() {
         <button
           type="submit"
           disabled={status === "loading"}
-          className="inline-flex items-center justify-center gap-2 rounded-md bg-foreground px-4 py-2.5 text-sm font-medium text-background transition-opacity hover:opacity-90 disabled:opacity-60"
+          className="inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-blue-500 to-cyan-500 px-5 py-2.5 text-sm font-medium text-white shadow-lg shadow-blue-500/25 transition-all hover:shadow-blue-500/40 hover:scale-[1.02] disabled:opacity-60 disabled:hover:scale-100"
         >
           {status === "loading" ? (
             <>
@@ -169,7 +169,7 @@ function Field({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="mt-1.5 w-full rounded-md border border-border bg-background px-3 py-2.5 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-foreground"
+        className="mt-1.5 w-full rounded-lg border border-border bg-background px-3 py-2.5 text-sm text-foreground outline-none transition-all placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20"
       />
     </div>
   )
