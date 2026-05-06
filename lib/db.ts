@@ -1,10 +1,12 @@
 import { neon } from "@neondatabase/serverless"
 
-if (!process.env.DATABASE_URL) {
-  throw new Error("DATABASE_URL n'est pas définie")
+const databaseUrl = process.env.DATABASE_URL
+
+if (!databaseUrl && process.env.NODE_ENV === "production") {
+  throw new Error("DATABASE_URL n'est pas definie. Configurez cette variable d'environnement dans Vercel.")
 }
 
-export const sql = neon(process.env.DATABASE_URL)
+export const sql = neon(databaseUrl ?? "postgresql://placeholder:placeholder@localhost/placeholder")
 
 export type ContactMessage = {
   id: number
