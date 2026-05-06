@@ -23,7 +23,7 @@ export function PortfolioTabs({ projects }: { projects: Project[] }) {
 
   return (
     <section>
-      <div className="flex flex-wrap items-center gap-2 border-b border-border pb-4">
+      <div className="flex flex-wrap items-center gap-1.5 border-b border-border pb-4">
         {tabs.map((tab) => {
           const Icon = tab.icon
           const isActive = active === tab.id
@@ -32,10 +32,10 @@ export function PortfolioTabs({ projects }: { projects: Project[] }) {
               key={tab.id}
               onClick={() => setActive(tab.id)}
               className={[
-                "inline-flex items-center gap-2 rounded-lg border px-4 py-2 text-sm font-medium transition-all",
+                "inline-flex items-center gap-2 rounded-md border px-3 py-1.5 text-sm font-medium transition-colors",
                 isActive
-                  ? "border-primary bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow-lg shadow-blue-500/25"
-                  : "border-border bg-card text-muted-foreground hover:border-primary/50 hover:text-foreground hover:shadow-md",
+                  ? "border-foreground bg-foreground text-background"
+                  : "border-border bg-card text-muted-foreground hover:border-foreground/40 hover:text-foreground",
               ].join(" ")}
             >
               <Icon className="h-4 w-4" strokeWidth={1.5} />
@@ -56,7 +56,7 @@ export function PortfolioTabs({ projects }: { projects: Project[] }) {
 
         {active === "projects" ? (
           projects.length === 0 ? (
-            <p className="rounded-lg border border-border bg-card p-8 text-center text-sm text-muted-foreground">
+            <p className="rounded-md border border-border bg-card p-8 text-center text-sm text-muted-foreground">
               Aucun projet pour le moment.
             </p>
           ) : (
