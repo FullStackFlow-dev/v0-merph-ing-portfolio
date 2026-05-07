@@ -35,3 +35,17 @@ export type Project = {
   created_at: string
   updated_at: string
 }
+
+export type Certificate = {
+  id: number
+  title: string
+  issuer: string
+  domain: string
+  date_obtained: string
+  certificate_url: string | null
+  image_url: string | null
+  badge_url: string | null
+  display_order: number
+  created_at: string
+  updated_at: string
+}
