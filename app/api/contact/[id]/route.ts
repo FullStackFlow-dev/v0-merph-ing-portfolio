@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server"
-import { sql } from "@/lib/db"
+import { getSql } from "@/lib/db"
 
 export async function DELETE(
   _request: Request,
@@ -11,7 +11,7 @@ export async function DELETE(
     if (!Number.isFinite(numeric)) {
       return NextResponse.json({ error: "ID invalide" }, { status: 400 })
     }
-    await sql`DELETE FROM contact_messages WHERE id = ${numeric}`
+    await getSql()`DELETE FROM contact_messages WHERE id = ${numeric}`
     return NextResponse.json({ ok: true })
   } catch (err) {
     console.log("[v0] DELETE /api/contact/[id] erreur:", err)
