@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server"
-import { sql } from "@/lib/db"
+import { getSql } from "@/lib/db"
 import { sendContactNotification } from "@/lib/send-email"
 
 export async function POST(request: Request) {
@@ -34,7 +34,7 @@ export async function POST(request: Request) {
       )
     }
 
-    const rows = await sql`
+    const rows = await getSql()`
       INSERT INTO contact_messages (name, email, message)
       VALUES (${name}, ${email}, ${message})
       RETURNING id, created_at
@@ -61,7 +61,7 @@ export async function POST(request: Request) {
 
 export async function GET() {
   try {
-    const rows = await sql`
+    const rows = await getSql()`
       SELECT id, name, email, message, created_at, read
       FROM contact_messages
       ORDER BY created_at DESC

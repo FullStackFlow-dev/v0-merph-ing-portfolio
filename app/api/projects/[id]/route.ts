@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server"
-import { sql } from "@/lib/db"
+import { getSql } from "@/lib/db"
 
 export async function GET(
   _request: Request,
@@ -11,7 +11,7 @@ export async function GET(
     if (!Number.isFinite(numeric)) {
       return NextResponse.json({ error: "ID invalide" }, { status: 400 })
     }
-    const rows = await sql`SELECT * FROM projects WHERE id = ${numeric}`
+    const rows = await getSql()`SELECT * FROM projects WHERE id = ${numeric}`
     if (rows.length === 0) {
       return NextResponse.json({ error: "Introuvable" }, { status: 404 })
     }
@@ -52,7 +52,7 @@ export async function PUT(
       )
     }
 
-    const rows = await sql`
+    const rows = await getSql()`
       UPDATE projects
       SET title = ${title},
           category = ${category},
@@ -84,7 +84,7 @@ export async function DELETE(
     if (!Number.isFinite(numeric)) {
       return NextResponse.json({ error: "ID invalide" }, { status: 400 })
     }
-    await sql`DELETE FROM projects WHERE id = ${numeric}`
+    await getSql()`DELETE FROM projects WHERE id = ${numeric}`
     return NextResponse.json({ ok: true })
   } catch (err) {
     console.log("[v0] DELETE /api/projects/[id] erreur:", err)

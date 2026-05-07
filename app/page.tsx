@@ -1,12 +1,12 @@
 import Link from "next/link"
-import { sql, type Project } from "@/lib/db"
+import { getSql, type Project } from "@/lib/db"
 import { Sidebar } from "@/components/portfolio/sidebar"
 import { Hero } from "@/components/portfolio/hero"
 import { PortfolioTabs } from "@/components/portfolio/portfolio-tabs"
 import { CollaborationSection } from "@/components/portfolio/collaboration-section"
 import { AdminButton } from "@/components/admin-button"
 import { profile } from "@/data/portfolio-data"
-import { ArrowRight, Github, Linkedin, Twitter, Instagram, MessageCircle } from "lucide-react"
+import { ArrowRight, Github, Linkedin, Twitter, Instagram, MessageCircle, Lock } from "lucide-react"
 
 export const dynamic = "force-dynamic"
 
@@ -29,7 +29,7 @@ function FacebookIcon({ className, strokeWidth }: { className?: string; strokeWi
 
 async function getProjects(): Promise<Project[]> {
   try {
-    const rows = await sql`
+    const rows = await getSql()`
       SELECT id, title, category, description, tags, link, display_order, created_at, updated_at
       FROM projects
       ORDER BY display_order DESC, created_at DESC
