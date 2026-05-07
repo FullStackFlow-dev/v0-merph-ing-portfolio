@@ -39,10 +39,10 @@ const emptyForm: FormState = {
 }
 
 export function CertificatesManager({
-  initialCertificates,
+  initialCertificates = [],
 }: {
-  initialCertificates: Certificate[]
-}) {
+  initialCertificates?: Certificate[]
+} = {}) {
   const [certificates, setCertificates] = useState<Certificate[]>(
     initialCertificates,
   )
@@ -394,6 +394,8 @@ export function CertificatesManager({
     </div>
   )
 }
+
+export default CertificatesManager
 
 function FormRow({
   label,
