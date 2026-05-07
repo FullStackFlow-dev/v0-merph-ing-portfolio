@@ -1,18 +1,20 @@
 "use client"
 
 import { useState } from "react"
-import { BarChart3, FolderKanban, Layers, Mail } from "lucide-react"
+import { BarChart3, FolderKanban, Layers, Mail, Wrench } from "lucide-react"
 import { DomainCard } from "./domain-card"
 import { ProjectCard } from "./project-card"
 import { AnalyticsWidget } from "./analytics-widget"
 import { ContactForm } from "./contact-form"
+import { SkillsSection } from "./skills-section"
 import { domains } from "@/data/portfolio-data"
 import type { Project } from "@/lib/db"
 
-type TabId = "domains" | "projects" | "analytics" | "contact"
+type TabId = "domains" | "skills" | "projects" | "analytics" | "contact"
 
 const tabs: { id: TabId; label: string; icon: typeof Layers }[] = [
   { id: "domains", label: "Domaines", icon: Layers },
+  { id: "skills", label: "Competences", icon: Wrench },
   { id: "projects", label: "Projets", icon: FolderKanban },
   { id: "analytics", label: "Analytics", icon: BarChart3 },
   { id: "contact", label: "Contact", icon: Mail },
@@ -53,6 +55,8 @@ export function PortfolioTabs({ projects }: { projects: Project[] }) {
             ))}
           </div>
         ) : null}
+
+        {active === "skills" ? <SkillsSection /> : null}
 
         {active === "projects" ? (
           projects.length === 0 ? (
