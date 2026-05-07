@@ -1,4 +1,4 @@
-import { sql, type ContactMessage } from "@/lib/db"
+import { getSql, type ContactMessage } from "@/lib/db"
 import { AdminNav } from "@/components/admin/admin-nav"
 import { MessagesDashboard } from "@/components/admin/messages-dashboard"
 
@@ -11,7 +11,7 @@ export const metadata = {
 
 async function getMessages(): Promise<ContactMessage[]> {
   try {
-    const rows = await sql`
+    const rows = await getSql()`
       SELECT id, name, email, message, created_at, read
       FROM contact_messages
       ORDER BY created_at DESC

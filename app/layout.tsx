@@ -1,14 +1,7 @@
 import type { Metadata, Viewport } from "next"
-import { Instrument_Sans } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 
-const instrumentSans = Instrument_Sans({
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  variable: "--font-instrument",
-  display: "swap",
-})
 
 export const metadata: Metadata = {
   title: "Merph-dev — Data Scientist, IA & Full Stack Engineer | Dakar",
@@ -78,7 +71,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="fr" className={`${instrumentSans.variable} bg-background`}>
+    <html lang="fr" className="bg-background">
       <head>
         <script
           type="application/ld+json"
