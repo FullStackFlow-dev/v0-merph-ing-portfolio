@@ -6,7 +6,7 @@ export function DomainCard({ domain, index }: { domain: Domain; index: number })
   const Icon = domain.icon
   return (
     <article
-      className={`card-glow ${domain.glowColor} group animate-fade-in cursor-pointer rounded-lg border border-border bg-card p-6 transition-all duration-300`}
+      className={`card-lit card-glow ${domain.glowColor} group animate-fade-in cursor-pointer rounded-lg border border-border bg-card p-6 transition-all duration-300`}
       style={{ animationDelay: `${index * 40}ms` }}
     >
       <div className="flex items-start gap-4">

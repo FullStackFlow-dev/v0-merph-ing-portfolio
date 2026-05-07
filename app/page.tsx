@@ -64,6 +64,26 @@ export default async function Home() {
             </div>
           </div>
 
+        {/* Footer matching reference portfolio */}
+        <footer className="mt-16 border-t border-border pt-12">
+          <div className="flex flex-col items-center gap-8">
+            {/* CTA Section */}
+            <div className="text-center">
+              <h3 className="text-2xl font-semibold text-foreground">
+                Prêt à collaborer ou un projet en tête ?
+              </h3>
+              <p className="mt-2 text-sm text-muted-foreground">Discutons de votre prochain projet Data, Web, mobile ou architecture.</p>
+              <Link
+                href={`mailto:${profile.email}`}
+                className="group mt-3 inline-flex items-center gap-2 text-2xl font-medium text-foreground transition-colors hover:text-primary lg:text-3xl"
+              >
+                {profile.email}
+                <ArrowRight
+                  className="h-5 w-5 transition-transform group-hover:translate-x-1"
+                  strokeWidth={1.5}
+                />
+              </Link>
+            </div>
           {/* Collaboration Section */}
           <CollaborationSection />
 
@@ -100,7 +120,7 @@ export default async function Home() {
               {/* Copyright */}
               <div className="flex flex-col items-center gap-1 text-xs text-muted-foreground">
                 <span>
-                  © {new Date().getFullYear()} {profile.name}. Tous droits réservés.
+                  © {new Date().getFullYear()} {profile.name}.2026 Merphy Mademba. Tous droits réservés.
                 </span>
                 <span>Conçu & développé à Dakar, Sénégal.</span>
               </div>

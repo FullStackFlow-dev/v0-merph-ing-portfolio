@@ -25,7 +25,7 @@ function FacebookIcon({ className, strokeWidth }: { className?: string; strokeWi
 export function Sidebar() {
   return (
     <aside className="lg:sticky lg:top-8 lg:self-start">
-      <div className="rounded-lg bg-sidebar p-6 shadow-xl lg:p-8">
+      <div className="rounded-lg bg-sidebar p-6 shadow-xl lg:p-8 card-lit glow-indigo active:scale-[1.01]">
         {/* Profile Image - Larger like reference */}
         <div className="flex flex-col items-center text-center lg:items-center">
           <div className="relative h-36 w-36 shrink-0 overflow-hidden rounded-full border-2 border-sidebar-border shadow-lg lg:h-44 lg:w-44">
