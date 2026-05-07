@@ -28,7 +28,7 @@ jobs:
       db_url: ${{ steps.create_neon_branch_encode.outputs.db_url }}
       db_url_with_pooler: ${{ steps.create_neon_branch_encode.outputs.db_url_with_pooler }}
     needs: setup
-    if: |
+    if: >
       github.event_name == 'pull_request' && (
       github.event.action == 'synchronize'
       || github.event.action == 'opened'
