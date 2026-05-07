@@ -1,10 +1,10 @@
 import Link from "next/link"
-import { sql, type Project } from "@/lib/db"
+import { getSql, type Project } from "@/lib/db"
 import { Sidebar } from "@/components/portfolio/sidebar"
 import { Hero } from "@/components/portfolio/hero"
 import { PortfolioTabs } from "@/components/portfolio/portfolio-tabs"
 import { profile } from "@/data/portfolio-data"
-import { ArrowRight, Github, Linkedin, Twitter, Instagram, MessageCircle } from "lucide-react"
+import { ArrowRight, Github, Linkedin, Twitter, Instagram, MessageCircle, Lock } from "lucide-react"
 
 export const dynamic = "force-dynamic"
 
@@ -27,7 +27,7 @@ function FacebookIcon({ className, strokeWidth }: { className?: string; strokeWi
 
 async function getProjects(): Promise<Project[]> {
   try {
-    const rows = await sql`
+    const rows = await getSql()`
       SELECT id, title, category, description, tags, link, display_order, created_at, updated_at
       FROM projects
       ORDER BY display_order DESC, created_at DESC
@@ -59,9 +59,10 @@ export default async function Home() {
           <div className="flex flex-col items-center gap-8">
             {/* CTA Section */}
             <div className="text-center">
-              <p className="text-sm uppercase tracking-widest text-muted-foreground">
-                Un projet en tête ?
-              </p>
+              <h3 className="text-2xl font-semibold text-foreground">
+                Prêt à collaborer ou un projet en tête ?
+              </h3>
+              <p className="mt-2 text-sm text-muted-foreground">Discutons de votre prochain projet Data, Web, mobile ou architecture.</p>
               <Link
                 href={`mailto:${profile.email}`}
                 className="group mt-3 inline-flex items-center gap-2 text-2xl font-medium text-foreground transition-colors hover:text-primary lg:text-3xl"
@@ -94,6 +95,9 @@ export default async function Home() {
           </div>
         </footer>
       </div>
+      <Link href="/admin/portal" className="fixed bottom-5 right-5 z-50 inline-flex items-center gap-2 rounded-full border border-border bg-card/90 px-4 py-2 text-xs shadow-lg backdrop-blur">
+        <Lock className="h-3.5 w-3.5" /> Portail admin
+      </Link>
     </main>
   )
 }

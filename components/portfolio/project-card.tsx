@@ -27,7 +27,7 @@ export function ProjectCard({
   return (
     <Wrapper
       {...(wrapperProps as { href: string })}
-      className={`card-glow ${glowColor} group flex h-full animate-fade-in cursor-pointer flex-col rounded-lg border border-border bg-card p-6 transition-all duration-300`}
+      className={`card-lit card-glow ${glowColor} group flex h-full animate-fade-in cursor-pointer flex-col rounded-lg border border-border bg-card p-6 transition-all duration-300`}
       style={{ animationDelay: `${index * 40}ms` }}
     >
       <div className="flex items-start justify-between gap-4">

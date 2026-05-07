@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server"
-import { sql } from "@/lib/db"
+import { getSql } from "@/lib/db"
 
 export async function GET() {
   try {
-    const rows = await sql`
+    const rows = await getSql()`
       SELECT id, title, category, description, tags, link, display_order, created_at, updated_at
       FROM projects
       ORDER BY display_order DESC, created_at DESC
@@ -37,7 +37,7 @@ export async function POST(request: Request) {
       )
     }
 
-    const rows = await sql`
+    const rows = await getSql()`
       INSERT INTO projects (title, category, description, tags, link, display_order)
       VALUES (${title}, ${category}, ${description}, ${JSON.stringify(tags)}::jsonb, ${link || null}, ${display_order})
       RETURNING *
