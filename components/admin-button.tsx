@@ -3,6 +3,13 @@
 import Link from "next/link"
 import { Lock } from "lucide-react"
 
+/**
+ * Renders a responsive floating "Admin" link button that navigates to the /admin route.
+ *
+ * The button is hidden on small screens and appears fixed near the bottom-right on medium screens and larger. It includes a lock icon, label, and a subtle gradient glow on hover.
+ *
+ * @returns A JSX element for the responsive floating Admin link button.
+ */
 export function AdminButton() {
   return (
     <div className="hidden md:fixed md:bottom-8 md:right-8 md:flex md:z-50">

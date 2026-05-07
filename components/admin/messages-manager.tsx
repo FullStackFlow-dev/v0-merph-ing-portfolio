@@ -12,6 +12,13 @@ interface Message {
   created_at: string
 }
 
+/**
+ * Admin UI component for viewing and managing contact messages with stats, filtering, and a detail modal.
+ *
+ * Loads messages from `/api/messages`, auto-refreshes the list every 30 seconds, and provides per-message actions to mark read/unread and to delete messages.
+ *
+ * @returns A React element rendering the messages manager interface (stats cards, filter controls, message list, and message detail modal).
+ */
 export default function MessagesManager() {
   const [messages, setMessages] = useState<Message[]>([])
   const [loading, setLoading] = useState(true)
@@ -290,6 +297,14 @@ export default function MessagesManager() {
   )
 }
 
+/**
+ * Renders a small statistic card showing a label and numeric value with a colored theme.
+ *
+ * @param label - Short descriptive label shown above the value (e.g., "Total", "Unread")
+ * @param value - Numeric value to display prominently
+ * @param color - Visual theme for the card; selects one of the predefined color palettes
+ * @returns The stat card element displaying `label` and `value` styled according to `color`
+ */
 function StatCard({ label, value, color }: { label: string; value: number; color: 'blue' | 'yellow' | 'green' }) {
   const colorMap = {
     blue: { bg: 'bg-blue-900/20', border: 'border-blue-700', text: 'text-blue-400', value: 'text-blue-300' },

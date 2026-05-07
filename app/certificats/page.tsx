@@ -37,6 +37,11 @@ const DOMAIN_DESCRIPTIONS: Record<string, string> = {
   'Application avec Python': 'Développement d\'applications supervisées et non supervisées'
 }
 
+/**
+ * Render the certificates listing page: fetches certificates, groups and sorts them by domain, and displays loading, error, or empty states, per-domain certificate grids, and footer summary stats.
+ *
+ * @returns The page's JSX element that renders the certificates UI.
+ */
 export default function CertificatesPage() {
   const [certificates, setCertificates] = useState<Certificate[]>([])
   const [loading, setLoading] = useState(true)
@@ -206,6 +211,12 @@ interface CertificateCardProps {
   certificate: Certificate
 }
 
+/**
+ * Render a certificate card showing an image or badge, title, issuer, obtained date, and an optional external link.
+ *
+ * @param certificate - The certificate object to display; expected to contain fields such as `title`, `issuer`, optional `date_obtained`, `image_url`, `badge_url`, and `certificate_url`.
+ * @returns A JSX element representing the styled certificate card.
+ */
 function CertificateCard({ certificate }: CertificateCardProps) {
   const [imageError, setImageError] = useState(false)
 

@@ -41,6 +41,13 @@ async function getProjects(): Promise<Project[]> {
   }
 }
 
+/**
+ * Render the homepage layout including the sidebar, hero, portfolio tabs, collaboration section, footer, and a floating admin button.
+ *
+ * Fetches project data and supplies it to the PortfolioTabs component.
+ *
+ * @returns A React element containing the complete homepage layout.
+ */
 export default async function Home() {
   const projects = await getProjects()
 

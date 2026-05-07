@@ -34,6 +34,17 @@ interface Certificate {
   updated_at: string
 }
 
+/**
+ * Client-side Admin dashboard that gates access behind an admin authentication UI, loads initial
+ * projects and certificates when authenticated, and renders a three-tab interface for Projects,
+ * Messages, and Certificates.
+ *
+ * The component reads an `adminToken` from sessionStorage or localStorage on mount, fetches
+ * initial data for projects and certificates if a token is present, and provides a logout action
+ * that clears tokens and resets local state.
+ *
+ * @returns The admin dashboard UI as a JSX element.
+ */
 export default function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [activeTab, setActiveTab] = useState<'projects' | 'messages' | 'certificates'>('projects')

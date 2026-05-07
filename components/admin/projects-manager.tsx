@@ -25,6 +25,12 @@ const emptyForm: FormState = {
   image_url: '',
 }
 
+/**
+ * Render a projects management UI that lists projects and provides create, edit, delete, image upload, and reorder functionality.
+ *
+ * @param initialProjects - Optional initial list of projects used to populate the manager; defaults to an empty array.
+ * @returns The React element for the projects management interface.
+ */
 export default function ProjectsManager({
   initialProjects = [],
 }: {
@@ -375,6 +381,14 @@ export default function ProjectsManager({
   )
 }
 
+/**
+ * Renders a labeled form row with an optional required indicator and field content.
+ *
+ * @param label - The label text shown above the field
+ * @param required - When true, appends a red `*` after the label to indicate the field is required
+ * @param children - The form control(s) or content displayed beneath the label
+ * @returns The form row element containing the label and children
+ */
 function FormRow({
   label,
   required,

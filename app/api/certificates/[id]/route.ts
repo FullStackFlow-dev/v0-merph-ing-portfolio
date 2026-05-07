@@ -1,6 +1,14 @@
 import { NextResponse } from "next/server"
 import { sql } from "@/lib/db"
 
+/**
+ * Update a certificate identified by `id` using fields from the request body.
+ *
+ * Validates required fields and returns the updated certificate record.
+ *
+ * @param params - A promise resolving to route parameters; must include `id`
+ * @returns The updated certificate row as returned by the database. Returns a 400 JSON error when required fields are missing, a 404 JSON error when no certificate matches `id`, and a 500 JSON error on internal failure.
+ */
 export async function PUT(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
@@ -58,6 +66,11 @@ export async function PUT(
   }
 }
 
+/**
+ * Delete the certificate identified by the route `id`.
+ *
+ * @returns A NextResponse whose JSON is `{ success: true }` on successful deletion; when no matching row exists, JSON `{ error: "Certificat non trouvé" }` with status `404`; on internal error, JSON `{ error: "Erreur lors de la suppression du certificat" }` with status `500`.
+ */
 export async function DELETE(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
