@@ -12,6 +12,13 @@ const DOMAIN_ORDER = [
   "Apprentissage supervisé et non supervisé"
 ]
 
+/**
+ * Fetches certificate records, groups them by domain, and renders the Certificates page with domain-ordered sections of certificate cards.
+ *
+ * The page queries the `certificates` table, groups results by `domain`, orders domains according to `DOMAIN_ORDER`, and displays each certificate's image, issuer, obtained date (formatted for fr-FR), and an external link when available. If no certificates are present, an empty state message is rendered.
+ *
+ * @returns The React element for the Certificates page containing domain sections with certificate cards or an empty-state message when no certificates exist.
+ */
 export default async function CertificatesPage() {
   try {
     const certificates = await sql<Certificate[]>(

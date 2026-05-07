@@ -3,6 +3,13 @@
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 
+/**
+ * Renders a styled collaboration call-to-action section with animated particle effects and a "Commencer" link to `#contact`.
+ *
+ * The section includes a heading, supporting text, a CTA button, and decorative animated particles layered behind the content.
+ *
+ * @returns A JSX element containing the collaboration section markup and its embedded styles.
+ */
 export function CollaborationSection() {
   return (
     <section className="relative overflow-hidden rounded-lg border border-border/50 bg-gradient-to-b from-blue-950 via-slate-900 to-black py-20 md:py-32 mt-16">

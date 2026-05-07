@@ -38,6 +38,12 @@ const emptyForm: FormState = {
   display_order: '0',
 }
 
+/**
+ * Render a certificates administration UI that lists certificates grouped by predefined domains and provides a modal form to create, edit, or delete certificates.
+ *
+ * @param initialCertificates - Optional initial list of certificates used to populate the component's local state.
+ * @returns The rendered CertificatesManager React element.
+ */
 export default function CertificatesManager({
   initialCertificates = [],
 }: {
@@ -363,6 +369,14 @@ export default function CertificatesManager({
   )
 }
 
+/**
+ * Renders a labeled form row with an optional required indicator and a content area for form controls.
+ *
+ * @param label - Text shown as the row label (displayed above the content)
+ * @param required - When true, appends a red `*` to the label to indicate the field is required
+ * @param children - The form controls or content rendered beneath the label
+ * @returns The JSX element representing the labeled form row
+ */
 function FormRow({
   label,
   required,

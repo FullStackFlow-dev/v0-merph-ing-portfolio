@@ -23,6 +23,15 @@ const DOMAINS = [
   'Apprentissage supervisé et non supervisé',
 ]
 
+/**
+ * Renders an interactive grid of predefined expertise domains and their certificates.
+ *
+ * The component fetches certificate data when mounted, shows a badge with the number of certificates per domain,
+ * and allows toggling an expanded panel to list certificates for a selected domain. Certificate entries include
+ * title, issuer, and an optional external link that opens in a new tab.
+ *
+ * @returns The rendered JSX element containing the domains grid and expandable certificate lists.
+ */
 export default function ExpertiseWithCertificates() {
   const [certificates, setCertificates] = useState<Certificate[]>([])
   const [expandedDomain, setExpandedDomain] = useState<string | null>(null)

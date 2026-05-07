@@ -1,6 +1,11 @@
 import { NextResponse } from "next/server"
 import { sql } from "@/lib/db"
 
+/**
+ * Fetches all certificates ordered by domain, display order, and date obtained and returns them as JSON.
+ *
+ * @returns A JSON response containing an array of certificate objects (each with `id`, `title`, `issuer`, `domain`, `date_obtained`, `certificate_url`, `image_url`, `badge_url`, `display_order`, `created_at`, and `updated_at`) on success; on failure returns a JSON error object and HTTP status 500.
+ */
 export async function GET() {
   try {
     const rows = await sql`
@@ -29,6 +34,27 @@ export async function GET() {
   }
 }
 
+/**
+ * Create a new certificate from the JSON request body and return the created row.
+ *
+ * Expects the request body to be a JSON object with the following fields:
+ * - `title` (string, required) — certificate title
+ * - `issuer` (string, required) — issuing organization
+ * - `domain` (string, required) — associated domain or category
+ * - `date_obtained` (string | date, optional) — ISO date or parsable date string; defaults to now
+ * - `certificate_url`, `image_url`, `badge_url` (string, optional) — URLs or omitted/null
+ * - `display_order` (number, optional) — display priority; defaults to 0
+ *
+ * Returns the newly inserted certificate record as JSON.
+ *
+ * @param request - HTTP request whose JSON body contains the certificate fields described above
+ * @returns The created certificate row
+ *
+ * Possible HTTP responses:
+ * - 201: created — returns the inserted certificate row
+ * - 400: bad request — missing `title`, `issuer`, or `domain`
+ * - 500: internal server error — database or unexpected failure
+ */
 export async function POST(request: Request) {
   try {
     const body = await request.json()
