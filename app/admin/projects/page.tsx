@@ -1,4 +1,4 @@
-import { sql, type Project } from "@/lib/db"
+import { getSql, type Project } from "@/lib/db"
 import { AdminNav } from "@/components/admin/admin-nav"
 import { ProjectsManager } from "@/components/admin/projects-manager"
 
@@ -11,7 +11,7 @@ export const metadata = {
 
 async function getProjects(): Promise<Project[]> {
   try {
-    const rows = await sql`
+    const rows = await getSql()`
       SELECT id, title, category, description, tags, link, display_order, created_at, updated_at
       FROM projects
       ORDER BY display_order DESC, created_at DESC
