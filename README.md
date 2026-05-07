@@ -81,9 +81,21 @@ Ouvrir [http://localhost:3000](http://localhost:3000) dans votre navigateur.
 
 Le projet est deploye sur [Vercel](https://vercel.com). Chaque push sur `main` declenche un deploiement automatique.
 
-1. Connecter le depot GitHub a Vercel
-2. Configurer les variables d'environnement dans le dashboard Vercel
-3. Le build est gere par `vercel.json` a la racine
+### Configuration sur Vercel
+
+1. **Connecter le depot GitHub a Vercel**
+2. **Configurer les variables d'environnement** dans Project Settings → Environment Variables :
+   - `DATABASE_URL` -- URL de connexion Neon PostgreSQL (ex: `postgresql://user:pass@host/db`)
+   - `RESEND_API_KEY` -- Cle API Resend pour les notifications email (optionnel)
+
+### Comment ca fonctionne
+
+- Le fichier `vercel.json` definit `buildEnv` qui rend `DATABASE_URL` disponible au build
+- Les variables sont egalement disponibles a l'execution via `env`
+- Sans `DATABASE_URL`, les routes API qui acedent a la BD echoueront a l'execution
+- Le build Next.js reussira grace a `buildEnv`, meme si les variables ne sont pas utilisees au build
+
+**Important**: Vercel charge les variables d'environnement depuis les secrets du projet (`@database_url`, `@resend_api_key`), pas depuis un fichier `.env`.
 
 ## Auteur
 
