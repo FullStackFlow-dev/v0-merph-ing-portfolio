@@ -2,13 +2,18 @@ import { neon } from "@neondatabase/serverless"
 
 const databaseUrl = process.env.DATABASE_URL
 
-if (!databaseUrl && process.env.NODE_ENV === "production") {
-  throw new Error(
-    "DATABASE_URL is required in production. Configure it in Vercel project settings."
+if (!databaseUrl) {
+  if (process.env.NODE_ENV === "production") {
+    throw new Error(
+      "DATABASE_URL is required in production. Set it in Vercel project settings under Environment Variables."
+    )
+  }
+  console.warn(
+    "[db.ts] DATABASE_URL not found. Database calls will fail. Set it locally with .env.local or on Vercel project settings."
   )
 }
 
-export const sql = neon(databaseUrl || "")
+export const sql = neon(databaseUrl || "postgresql://localhost/stub")
 
 export type ContactMessage = {
   id: number
