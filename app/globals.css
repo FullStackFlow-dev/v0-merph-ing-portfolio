@@ -252,6 +252,11 @@
 }
 
 
+.snow-bg {
+  background: radial-gradient(circle at 20% -10%, #1f3b73 0%, #0b1731 45%, #050b18 100%);
+  min-height: 100vh;
+}
+.snow-bg::before {
 body {
   background: radial-gradient(circle at 20% -10%, #1f3b73 0%, #0b1731 45%, #050b18 100%);
   min-height: 100vh;

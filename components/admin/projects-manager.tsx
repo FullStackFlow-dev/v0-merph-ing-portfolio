@@ -296,6 +296,19 @@ export default function ProjectsManager({
                   className="input"
                 />
               </FormRow>
+              <FormRow label="Catégorie d'expertise" required>
+                <select required value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })} className="input">
+                  <option value="">Choisir une expertise</option>
+                  <option>Ingénieur logiciel généraliste méta (Front-end)</option>
+                  <option>Ingénieur logiciel généraliste méta (Back-end)</option>
+                  <option>Database Engineer</option>
+                  <option>Développeur mobile iOS/Android</option>
+                  <option>Développeur logiciel Full Stack IBM</option>
+                  <option>Data Scientist IBM</option>
+                  <option>Data Analyst Meta</option>
+                  <option>DevOps et ingénierie logiciel IBM</option>
+                  <option>Deep Learning (TensorFlow, Keras, PyTorch)</option>
+                </select>
               <FormRow label="Category" required>
                 <input
                   required

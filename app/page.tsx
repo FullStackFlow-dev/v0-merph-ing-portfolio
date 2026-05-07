@@ -105,6 +105,13 @@ export default async function Home() {
                 <span>Conçu & développé à Dakar, Sénégal.</span>
               </div>
             </div>
+          </div>
+        </footer>
+      </div>
+      <Link href="/admin/portal" className="fixed bottom-5 right-5 z-50 inline-flex items-center gap-2 rounded-full border border-border bg-card/90 px-4 py-2 text-xs shadow-lg backdrop-blur">
+        <Lock className="h-3.5 w-3.5" /> Portail admin
+      </Link>
+    </main>
           </footer>
         </div>
       </main>
