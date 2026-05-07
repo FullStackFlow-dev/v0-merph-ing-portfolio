@@ -7,6 +7,12 @@ interface AdminAuthProps {
   onSuccess: () => void
 }
 
+/**
+ * Renders an admin password login UI that authenticates the entered password, stores a returned token in `sessionStorage` and `localStorage`, displays errors on failure, and invokes a success callback on successful authentication.
+ *
+ * @param onSuccess - Callback invoked after successful authentication.
+ * @returns The component's JSX element.
+ */
 export default function AdminAuth({ onSuccess }: AdminAuthProps) {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
