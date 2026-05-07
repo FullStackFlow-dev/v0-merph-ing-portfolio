@@ -1,12 +1,13 @@
 # FullStackFlow Portfolio
 
-A modern, responsive portfolio website built with Next.js, Supabase, and Tailwind CSS.
+A modern, responsive portfolio website built with Next.js, Neon PostgreSQL, and Tailwind CSS.
 
 ## Tech Stack
 
-- **Frontend**: Next.js 14 (App Router), React, TypeScript, Tailwind CSS
-- **Backend**: Supabase PostgreSQL, Edge Functions
-- **UI**: Lucide React Icons, Custom CSS Animations
+- **Frontend**: Next.js 16 (App Router, RSC), React, TypeScript, Tailwind CSS
+- **Backend**: Neon PostgreSQL (serverless), Vercel Analytics
+- **UI**: Lucide React Icons, shadcn/ui (New York), Custom CSS Animations
+- **Email**: Resend API
 - **Deployment**: Vercel
 
 ## Features
@@ -17,8 +18,9 @@ A modern, responsive portfolio website built with Next.js, Supabase, and Tailwin
 - **Animations**: Smooth transitions, snowfall effects, fade-in animations
 - **Certificate Management**: Organize certificates by 8 expertise domains
 - **Project Portfolio**: Showcase projects with images, descriptions, and links
-- **Contact Form**: Receive and manage contact messages
+- **Contact Form**: Receive and manage contact messages (via Resend)
 - **Admin Panel**: Secure password-protected admin dashboard
+- **Skills Section**: Visual skills display with progress bars by domain
 
 ### 🛡️ Admin Panel Features
 1. **Projects Management**: Add, edit, delete portfolio projects with local image uploads
@@ -41,19 +43,20 @@ app/
 │   ├── messages/
 │   │   ├── route.ts (GET, POST)
 │   │   └── [id]/route.ts (GET, PATCH, DELETE)
-│   └── projects/
-│       ├── route.ts (GET, POST)
-│       └── [id]/route.ts (GET, PUT, DELETE)
-├── admin/
+│   ├── projects/
+│   │   ├── route.ts (GET, POST)
+│   │   └── [id]/route.ts (GET, PUT, DELETE)
+│   ├── admin/
+│   ├── certificates/
+│   │   └── page.tsx
 │   └── page.tsx
-├── certificates/
-│   └── page.tsx
-└── page.tsx
 
 components/
 ├── portfolio/
 │   ├── expertise-with-certificates.tsx
-│   └── skills-section.tsx
+│   ├── skills-section.tsx
+│   ├── portfolio-tabs.tsx
+│   └── ...
 ├── admin/
 │   ├── admin-auth.tsx
 │   ├── projects-manager.tsx
@@ -64,53 +67,48 @@ components/
 └── snowfall-animation.tsx
 
 lib/
-├── db.ts (Supabase client and types)
-└── ...
+├── db.ts (Neon PostgreSQL client and types)
+├── send-email.ts (Resend email service)
+└── utils.ts
 
-supabase/
-└── functions/
-    └── admin-auth/ (Edge function for admin authentication)
+scripts/
+├── 001_create_tables.sql (Database schema)
+└── 002_seed_projects.sql (Initial data)
 ```
 
 ### 📊 Database Schema
 
 **certificates** table
-- id (uuid, primary key)
+- id (integer, primary key)
 - title (text)
 - domain (text) - One of 8 expertise domains
 - issuer (text)
 - certificate_url (text, nullable)
 - date_obtained (date)
 - image_url (text, nullable)
-- display_order (int)
-- created_at (timestamptz)
-- updated_at (timestamptz)
+- badge_url (text, nullable)
+- display_order (integer)
+- created_at (timestamp)
+- updated_at (timestamp)
 
 **contact_messages** table
-- id (uuid, primary key)
+- id (integer, primary key)
 - name (text)
 - email (text)
 - message (text)
-- is_read (boolean)
-- created_at (timestamptz)
+- read (boolean)
+- created_at (timestamp)
 
-**admin_settings** table
-- id (uuid, primary key)
-- password_hash (text)
-- created_at (timestamptz)
-- updated_at (timestamptz)
-
-**projects** table (existing)
-- id (uuid)
+**projects** table
+- id (integer, primary key)
 - title (text)
 - category (text)
 - description (text)
 - tags (text[])
 - link (text, nullable)
-- image_url (text, nullable)
-- display_order (int)
-- created_at (timestamptz)
-- updated_at (timestamptz)
+- display_order (integer)
+- created_at (timestamp)
+- updated_at (timestamp)
 
 ### 🔌 API Endpoints
 
@@ -135,9 +133,6 @@ supabase/
 - `PUT /api/projects/[id]` - Update project
 - `DELETE /api/projects/[id]` - Delete project
 
-#### Admin Auth
-- `POST /functions/v1/admin-auth` - Verify admin password
-
 ### 🚀 Getting Started
 
 1. **Clone the repository**
@@ -154,7 +149,7 @@ supabase/
 3. **Set up environment variables**
    ```bash
    cp .env.example .env.local
-   # Fill in your Supabase credentials
+   # Fill in your DATABASE_URL (Neon PostgreSQL) and RESEND_API_KEY
    ```
 
 4. **Run development server**
@@ -163,7 +158,7 @@ supabase/
    ```
 
 5. **Open browser**
-   Navigate to `http://localhost:5173`
+   Navigate to `http://localhost:3000`
 
 ### 📦 Deployment
 
@@ -171,25 +166,34 @@ The project is configured for Vercel deployment with proper environment variable
 
 1. **Connect GitHub to Vercel** via https://vercel.com/new
 2. **Configure Environment Variables** in Project Settings:
-   - `VITE_SUPABASE_URL` - Your Supabase project URL
-   - `VITE_SUPABASE_ANON_KEY` - Your Supabase anonymous key
-   - `DATABASE_URL` - Your database connection string
-   - `RESEND_API_KEY` - (Optional) Resend API key for email notifications
+   - `DATABASE_URL` - Your Neon PostgreSQL connection string (required)
+   - `RESEND_API_KEY` - Your Resend API key for email notifications (optional)
 
 3. **Deploy** - Push to main branch triggers automatic deployment
+
+### ⚙️ Vercel Configuration
+
+The `vercel.json` file handles:
+- Build command: `pnpm build`
+- Install command: `pnpm install`
+- Framework: Next.js
+- Region: cdg1 (Paris, closest to Dakar)
+- `buildEnv`: Exposes `DATABASE_URL` and `RESEND_API_KEY` during build
+- `env`: Maps variables to Vercel secrets (`@database_url`, `@resend_api_key`)
 
 ### 🔐 Security Notes
 
 - Admin panel is password protected with token-based sessions (localStorage)
-- All sensitive data uses Row Level Security (RLS) policies
-- Database queries use Supabase client with authenticated context
+- All sensitive credentials stored in Vercel environment variables
+- Database queries use parameterized SQL via Neon serverless client
 - No hardcoded secrets in the codebase
+- Type-safe database layer with TypeScript
 
 ### 📝 Expertise Domains
 
 The portfolio tracks certifications across 8 expertise domains:
 
-1. Ingénieur logiciel généraliste (Back-end, Front-end, Database Engineer, Mobile Developer)
+1. Ingénieur logiciel généraliste
 2. Développeur logiciel Full Stack IBM
 3. DevOps et ingénierie logiciel IBM
 4. Data Scientist IBM
@@ -208,7 +212,7 @@ The portfolio tracks certifications across 8 expertise domains:
 
 - **Typography**: Professional sans-serif with careful hierarchy
 - **Spacing**: 8px grid system via Tailwind
-- **Animations**: Smooth transitions, fade-ins, snow particles
+- **Animations**: Smooth transitions, fade-ins, glow effects
 
 ### 📞 Support
 
