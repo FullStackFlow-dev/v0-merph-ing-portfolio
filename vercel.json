@@ -1,0 +1,16 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "pnpm build",
+  "installCommand": "pnpm install",
+  "framework": "nextjs",
+  "outputDirectory": ".next",
+  "regions": ["cdg1"],
+  "buildEnv": [
+    "DATABASE_URL",
+    "RESEND_API_KEY"
+  ],
+  "env": {
+    "DATABASE_URL": "@database_url",
+    "RESEND_API_KEY": "@resend_api_key"
+  }
+}
