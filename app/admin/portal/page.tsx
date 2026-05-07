@@ -1,0 +1,2 @@
+import Link from "next/link"
+export default function Portal(){return <main className="min-h-screen grid place-items-center bg-background p-6"><div className="max-w-md rounded-xl border bg-card p-6 text-center"><h1 className="text-xl font-semibold">Accès restreint</h1><p className="mt-2 text-sm text-muted-foreground">Portail réservé à l'administrateur uniquement.</p><Link href="/admin" className="mt-4 inline-block rounded bg-foreground px-4 py-2 text-background">Continuer</Link></div></main>}
