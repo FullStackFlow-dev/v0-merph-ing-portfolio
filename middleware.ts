@@ -9,6 +9,16 @@ export function middleware(request: NextRequest) {
 
   const token = request.cookies.get('admin_session')?.value
   if (!token) {
+import { SESSION_COOKIE, verifyAdminSession } from "@/lib/admin-auth"
+
+export function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl
+  if (!pathname.startsWith('/admin') || pathname.startsWith('/admin/portal')) {
+    return NextResponse.next()
+  }
+
+  const token = request.cookies.get(SESSION_COOKIE)?.value
+  if (!verifyAdminSession(token)) {
     const url = request.nextUrl.clone()
     url.pathname = '/admin/portal'
     return NextResponse.redirect(url)
