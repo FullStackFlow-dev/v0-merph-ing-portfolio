@@ -1,21 +1,23 @@
 "use client"
 
 import { useState } from "react"
-import { BarChart3, FolderKanban, Layers, Mail } from "lucide-react"
+import { BarChart3, FolderKanban, Layers, Mail, UserRound } from "lucide-react"
 import { DomainCard } from "./domain-card"
 import { ProjectCard } from "./project-card"
 import { AnalyticsWidget } from "./analytics-widget"
 import { ContactForm } from "./contact-form"
+import { AboutSection } from "./about-section"
 import { domains } from "@/data/portfolio-data"
 import type { Project } from "@/lib/db"
 
-type TabId = "domains" | "projects" | "analytics" | "contact"
+type TabId = "domains" | "projects" | "analytics" | "contact" | "about"
 
 const tabs: { id: TabId; label: string; icon: typeof Layers }[] = [
   { id: "domains", label: "Domaines", icon: Layers },
   { id: "projects", label: "Projets", icon: FolderKanban },
   { id: "analytics", label: "Analytics", icon: BarChart3 },
   { id: "contact", label: "Contact", icon: Mail },
+  { id: "about", label: "À propos", icon: UserRound },
 ]
 
 export function PortfolioTabs({ projects }: { projects: Project[] }) {
@@ -71,6 +73,8 @@ export function PortfolioTabs({ projects }: { projects: Project[] }) {
         {active === "analytics" ? <AnalyticsWidget /> : null}
 
         {active === "contact" ? <ContactForm /> : null}
+
+        {active === "about" ? <AboutSection /> : null}
       </div>
     </section>
   )

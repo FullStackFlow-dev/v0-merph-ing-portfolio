@@ -1,10 +1,21 @@
 import { neon } from "@neondatabase/serverless"
 
-if (!process.env.DATABASE_URL) {
-  throw new Error("DATABASE_URL n'est pas définie")
-}
+// Neon client lazy-initialized once to avoid build/startup crashes on missing envs.
+let sqlClient: ReturnType<typeof neon> | null = null
 
-export const sql = neon(process.env.DATABASE_URL)
+export function getSql() {
+  if (sqlClient) {
+    return sqlClient
+  }
+
+  const databaseUrl = process.env.DATABASE_URL ?? process.env.POSTGRES_URL
+  if (!databaseUrl) {
+    throw new Error("DATABASE_URL n'est pas définie")
+  }
+
+  sqlClient = neon(databaseUrl)
+  return sqlClient
+}
 
 export type ContactMessage = {
   id: number

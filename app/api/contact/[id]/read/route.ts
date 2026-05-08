@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server"
-import { sql } from "@/lib/db"
+import { getSql } from "@/lib/db"
 
 export async function PATCH(
   _request: Request,
@@ -11,7 +11,7 @@ export async function PATCH(
     if (!Number.isFinite(numeric)) {
       return NextResponse.json({ error: "ID invalide" }, { status: 400 })
     }
-    await sql`UPDATE contact_messages SET read = true WHERE id = ${numeric}`
+    await getSql()`UPDATE contact_messages SET read = true WHERE id = ${numeric}`
     return NextResponse.json({ ok: true })
   } catch (err) {
     console.log("[v0] PATCH /api/contact/[id]/read erreur:", err)
