@@ -25,15 +25,15 @@ function FacebookIcon({ className, strokeWidth }: { className?: string; strokeWi
 export function Sidebar() {
   return (
     <aside className="lg:sticky lg:top-8 lg:self-start">
-      <div className="rounded-lg bg-sidebar p-6 shadow-xl lg:p-8">
+      <div className="rounded-lg bg-sidebar p-6 shadow-xl lg:p-8 card-lit glow-indigo active:scale-[1.01]">
         {/* Profile Image - Larger like reference */}
         <div className="flex flex-col items-center text-center lg:items-center">
-          <div className="relative h-32 w-32 shrink-0 overflow-hidden rounded-full border-2 border-sidebar-border shadow-lg lg:h-40 lg:w-40">
+          <div className="relative h-36 w-36 shrink-0 overflow-hidden rounded-full border-2 border-sidebar-border shadow-lg lg:h-44 lg:w-44">
             <Image
               src="/merph-profile.jpg"
               alt={`Portrait de ${profile.name}`}
               fill
-              sizes="(min-width: 1024px) 160px, 128px"
+              sizes="(min-width: 1024px) 176px, 144px"
               className="object-cover"
               priority
             />

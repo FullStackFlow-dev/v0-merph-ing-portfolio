@@ -10,7 +10,7 @@ Spécialiste multi-domaines en Data Science, IA/LLM, Back-end, Front-end et Mobi
 
 - **Science des donnees & IA** -- Python, R, Scikit-learn, MLOps
 - **Analyse de donnees** -- SQL, Power BI, Tableau, Excel avance
-- **Ingenierie de donnees** -- Spark, Kafka, Airflow, BigQuery
+- **Ingenier de base de données donnees** -- Spark, Kafka, Airflow, BigQuery
 - **Deep Learning & LLM** -- PyTorch, TensorFlow, LangChain, RAG
 - **Back-end** -- Node.js, Django, FastAPI, PostgreSQL, Docker
 - **Front-end** -- React, Next.js, Vue.js, TypeScript, Tailwind CSS
@@ -108,4 +108,11 @@ Le projet est deploye sur [Vercel](https://vercel.com). Chaque push sur `main` d
 
 ## Licence
 
+<a href="https://v0.app/chat/api/kiro/clone/FullStackFlow-dev/v0-merph-ing-portfolio" alt="Open in Kiro"><img src="https://pdgvvgmkdvyeydso.public.blob.vercel-storage.com/open%20in%20kiro.svg?sanitize=true" /></a>
+
+
+## Admin security env vars
+- `ADMIN_PASSWORD_HASH`: SHA-256 hash du mot de passe admin.
+- `ADMIN_SESSION_SECRET`: secret long aléatoire pour signer la session.
+Exemple hash: `echo -n "Dev!2026" | sha256sum`
 Tous droits reserves. Concu et developpe a Dakar, Senegal.
