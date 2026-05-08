@@ -3,6 +3,8 @@ import { getSql, type Project } from "@/lib/db"
 import { Sidebar } from "@/components/portfolio/sidebar"
 import { Hero } from "@/components/portfolio/hero"
 import { PortfolioTabs } from "@/components/portfolio/portfolio-tabs"
+import { CollaborationSection } from "@/components/portfolio/collaboration-section"
+import { AdminButton } from "@/components/admin-button"
 import { profile } from "@/data/portfolio-data"
 import { ArrowRight, Github, Linkedin, Twitter, Instagram, MessageCircle, Lock } from "lucide-react"
 
@@ -39,20 +41,28 @@ async function getProjects(): Promise<Project[]> {
   }
 }
 
+/**
+ * Render the homepage layout including the sidebar, hero, portfolio tabs, collaboration section, footer, and a floating admin button.
+ *
+ * Fetches project data and supplies it to the PortfolioTabs component.
+ *
+ * @returns A React element containing the complete homepage layout.
+ */
 export default async function Home() {
   const projects = await getProjects()
 
   return (
-    <main className="min-h-screen bg-background">
-      <div className="mx-auto w-full max-w-6xl px-4 py-8 lg:px-8 lg:py-12">
-        <div className="grid gap-8 lg:grid-cols-[320px_1fr] lg:gap-12">
-          <Sidebar />
+    <>
+      <main className="min-h-screen bg-background">
+        <div className="mx-auto w-full max-w-6xl px-4 py-8 lg:px-8 lg:py-12">
+          <div className="grid gap-8 lg:grid-cols-[320px_1fr] lg:gap-12">
+            <Sidebar />
 
-          <div className="space-y-10">
-            <Hero />
-            <PortfolioTabs projects={projects} />
+            <div className="space-y-10">
+              <Hero />
+              <PortfolioTabs projects={projects} />
+            </div>
           </div>
-        </div>
 
         {/* Footer matching reference portfolio */}
         <footer className="mt-16 border-t border-border pt-12">
@@ -74,23 +84,46 @@ export default async function Home() {
                 />
               </Link>
             </div>
+          {/* Collaboration Section */}
+          <CollaborationSection />
 
-            {/* Social Links */}
-            <div className="flex items-center gap-4">
-              <FooterSocialLink href={profile.linkedin} icon={Linkedin} label="LinkedIn" />
-              <FooterSocialLink href={profile.github} icon={Github} label="GitHub" />
-              <FooterSocialLink href={profile.twitter} icon={Twitter} label="X (Twitter)" />
-              <FooterSocialLink href={profile.instagram} icon={Instagram} label="Instagram" />
-              <FooterSocialLink href={profile.discord} icon={MessageCircle} label="Discord" />
-              <FooterSocialLink href={profile.facebook} icon={FacebookIcon} label="Facebook" />
-            </div>
+          {/* Footer matching reference portfolio */}
+          <footer className="mt-16 border-t border-border pt-12">
+            <div className="flex flex-col items-center gap-8">
+              {/* CTA Section */}
+              <div className="text-center">
+                <p className="text-sm uppercase tracking-widest text-muted-foreground">
+                  Un projet en tête ?
+                </p>
+                <Link
+                  href={`mailto:${profile.email}`}
+                  className="group mt-3 inline-flex items-center gap-2 text-2xl font-medium text-foreground transition-colors hover:text-primary lg:text-3xl"
+                >
+                  {profile.email}
+                  <ArrowRight
+                    className="h-5 w-5 transition-transform group-hover:translate-x-1"
+                    strokeWidth={1.5}
+                  />
+                </Link>
+              </div>
 
-            {/* Copyright */}
-            <div className="flex flex-col items-center gap-1 text-xs text-muted-foreground">
-              <span>
-                © {new Date().getFullYear()} {profile.name}. Tous droits réservés.
-              </span>
-              <span>Conçu & développé à Dakar, Sénégal.</span>
+              {/* Social Links */}
+              <div className="flex items-center gap-4">
+                <FooterSocialLink href={profile.linkedin} icon={Linkedin} label="LinkedIn" />
+                <FooterSocialLink href={profile.github} icon={Github} label="GitHub" />
+                <FooterSocialLink href={profile.twitter} icon={Twitter} label="X (Twitter)" />
+                <FooterSocialLink href={profile.instagram} icon={Instagram} label="Instagram" />
+                <FooterSocialLink href={profile.discord} icon={MessageCircle} label="Discord" />
+                <FooterSocialLink href={profile.facebook} icon={FacebookIcon} label="Facebook" />
+              </div>
+
+              {/* Copyright */}
+              <div className="flex flex-col items-center gap-1 text-xs text-muted-foreground">
+                <span>
+                  © {new Date().getFullYear()} {profile.name}.2026 Merphy Mademba. Tous droits réservés.
+                </span>
+                <span>Conçu & développé à Dakar, Sénégal.</span>
+              </div>
             </div>
           </div>
         </footer>
@@ -99,6 +132,13 @@ export default async function Home() {
         <Lock className="h-3.5 w-3.5" /> Portail admin
       </Link>
     </main>
+          </footer>
+        </div>
+      </main>
+
+      {/* Floating Admin Button */}
+      <AdminButton />
+    </>
   )
 }
 
