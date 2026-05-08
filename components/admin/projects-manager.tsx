@@ -308,16 +308,7 @@ export default function ProjectsManager({
                   <option>Data Analyst Meta</option>
                   <option>DevOps et ingénierie logiciel IBM</option>
                   <option>Deep Learning (TensorFlow, Keras, PyTorch)</option>
-                </select>
-              <FormRow label="Category" required>
-                <input
-                  required
-                  maxLength={100}
-                  value={form.category}
-                  onChange={(e) => setForm({ ...form, category: e.target.value })}
-                  className="input"
-                  placeholder="Ex: Data Science"
-                />
+                </select>             
               </FormRow>
               <FormRow label="Description" required>
                 <textarea
